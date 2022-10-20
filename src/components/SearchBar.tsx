@@ -1,44 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 interface ISearchBarProps {
   onFormSubmit: any;
 }
 
-class SearchBar extends Component<ISearchBarProps> {
-  state = { term: '' };
+interface IEvent {
+  target: { value: string };
+}
 
-  onInputChange = (event: { target: { value: any } }): void => {
-    this.setState({ term: event.target.value });
+const SearchBar = ({ onFormSubmit }: ISearchBarProps) => {
+  const [term, setTerm] = useState('');
+
+  const onInputChange = (event: IEvent): void => {
+    setTerm(event.target.value);
   };
 
-  onFormSubmit = (event: { preventDefault: () => void }): void => {
+  const onSubmit = (event: { preventDefault: () => void }): void => {
     event.preventDefault();
 
-    this.props.onFormSubmit(this.state.term);
+    onFormSubmit(term);
   };
 
-  render() {
-    return (
-      <div className="ui segment">
-        <form onSubmit={this.onFormSubmit} className="ui form">
-          <div className="field">
-            <label>Video Search</label>
-            <div className="ui center aligned basic segment">
-              <div className="ui left icon action input">
-                <i className="search icon"></i>
-                <input
-                  type="text"
-                  value={this.state.term}
-                  onChange={this.onInputChange}
-                />
-                <button className="ui submit button">Search</button>
-              </div>
+  return (
+    <div className="ui segment">
+      <form onSubmit={onSubmit} className="ui form">
+        <div className="field">
+          <label>Video Search</label>
+          <div className="ui center aligned basic segment">
+            <div className="ui left icon action input">
+              <i className="search icon"></i>
+              <input type="text" value={term} onChange={onInputChange} />
+              <button className="ui submit button">Search</button>
             </div>
           </div>
-        </form>
-      </div>
-    );
-  }
-}
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default SearchBar;

@@ -1,55 +1,52 @@
-import React, { Component } from 'react';
-import youtube from './apis/youtube';
+import React, { useState, useEffect } from 'react';
 import SearchBar from './components/SearchBar';
 import VideoList from './components/VideoList';
 import VideoDetail from './components/VideoDetail';
+import useVideos from './hooks/useVideos';
 
-interface IAppState {
-  videos: string[];
-  selectedVideo: null;
-}
+const App = () => {
+  // const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [videos, search] = useVideos('beautiful wildlife');
 
-class App extends Component<{}, IAppState> {
-  state = { videos: [], selectedVideo: null };
+  useEffect((): void => {
+    setSelectedVideo(videos[0]);
+  }, [videos]);
 
-  componentDidMount() {
-    this.onTermSubmit('NextJs');
-  }
+  // useEffect((): void => {
+  //   onTermSubmit('beautiful wildlife');
+  // }, []);
 
-  onTermSubmit = async (term: string) => {
-    const res = await youtube.get('/search', {
-      params: {
-        q: term,
-      },
-    });
+  // const onTermSubmit = async (term: string): Promise<void> => {
+  //   const res = await youtube.get('/search', {
+  //     params: {
+  //       q: term,
+  //     },
+  //   });
 
-    this.setState({ videos: res.data.items, selectedVideo: res.data.items[0] });
-  };
+  //   setVideos(res.data.items);
+  //   setSelectedVideo(res.data.items[0]);
 
-  onVideoSelect = (video: any) => {
-    this.setState({ selectedVideo: video });
-  };
+  // };
 
-  render() {
-    return (
-      <div className="ui container">
-        <SearchBar onFormSubmit={this.onTermSubmit} />
-        <div className="ui grid">
-          <div className="ui row">
-            <div className="eleven wide column">
-              <VideoDetail video={this.state.selectedVideo} />
-            </div>
-            <div className="five wide column">
-              <VideoList
-                onVideoSelect={this.onVideoSelect}
-                videos={this.state.videos}
-              />
-            </div>
+  // const onVideoSelect = (video: React.SetStateAction<null>) =>
+  //   setSelectedVideo(video);
+
+  return (
+    <div className="ui container">
+      <SearchBar onFormSubmit={search} />
+      <div className="ui grid">
+        <div className="ui row">
+          <div className="eleven wide column">
+            <VideoDetail video={selectedVideo} />
+          </div>
+          <div className="five wide column">
+            <VideoList onVideoSelect={setSelectedVideo} videos={videos} />
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;

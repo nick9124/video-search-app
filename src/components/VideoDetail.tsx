@@ -1,11 +1,9 @@
 import React from 'react';
 import Spinner from './Spinner';
 
-interface propsInterface {
-  video: any;
-}
 
-const VideoDetail = ({ video }: propsInterface) => {
+
+const VideoDetail = ({ video }: any) => {
   if (!video) {
     return (
       <div>
