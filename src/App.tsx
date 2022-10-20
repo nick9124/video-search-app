@@ -13,7 +13,7 @@ class App extends Component<{}, IAppState> {
   state = { videos: [], selectedVideo: null };
 
   componentDidMount() {
-    this.onTermSubmit('NextJs');
+    this.onTermSubmit('beautiful wildlife');
   }
 
   onTermSubmit = async (term: string) => {
