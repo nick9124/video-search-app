@@ -5,29 +5,12 @@ import VideoDetail from './components/VideoDetail';
 import useVideos from './hooks/useVideos';
 
 const App = () => {
-  // const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [videos, search] = useVideos('beautiful wildlife');
 
   useEffect((): void => {
     setSelectedVideo(videos[0]);
   }, [videos]);
-
-  // useEffect((): void => {
-  //   onTermSubmit('beautiful wildlife');
-  // }, []);
-
-  componentDidMount() {
-    this.onTermSubmit('NextJs');
-  }
-
-  //   setVideos(res.data.items);
-  //   setSelectedVideo(res.data.items[0]);
-
-  // };
-
-  // const onVideoSelect = (video: React.SetStateAction<null>) =>
-  //   setSelectedVideo(video);
 
   return (
     <div className="ui container">
