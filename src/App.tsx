@@ -17,12 +17,9 @@ const App = () => {
   //   onTermSubmit('beautiful wildlife');
   // }, []);
 
-  // const onTermSubmit = async (term: string): Promise<void> => {
-  //   const res = await youtube.get('/search', {
-  //     params: {
-  //       q: term,
-  //     },
-  //   });
+  componentDidMount() {
+    this.onTermSubmit('NextJs');
+  }
 
   //   setVideos(res.data.items);
   //   setSelectedVideo(res.data.items[0]);
